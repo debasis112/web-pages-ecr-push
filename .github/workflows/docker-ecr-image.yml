@@ -52,3 +52,15 @@ jobs:
       # Step 7: Push the Docker image to ECR
       - name: Push Docker image to ECR
         run: docker push ${{ secrets.ECR_PRIVATE_REPO }}:v1.0.0
+
+      # Step 8: List ECR Repositories
+      - name: List ECR Repositories
+        run: |
+          echo "Listing ECR repositories..."
+          aws ecr describe-repositories --region ${{ secrets.AWS_REGION }}
+
+      # Step 9: List Images in the Repository
+      - name: List Images in ECR Repository
+        run: |
+          echo "Listing images in the ECR repository..."
+          aws ecr list-images --repository-name ${{ secrets.ECR_PRIVATE_REPO }} --region ${{ secrets.AWS_REGION }}
