@@ -1,4 +1,4 @@
-name: Push Docker Image to ECR Private repository
+name: Push Docker Image to ECR Public repository
 
 on:
   push:
@@ -31,7 +31,7 @@ jobs:
 
       # Step 4: Log in to Amazon ECR
       - name: Log in to Amazon ECR
-        run: aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.AWS_ECR_PRIVATE }}
+        run: aws ecr-public get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.AWS_ECR_PUBLIC }}
 
       # Step 5: Pull the Docker image from Docker Hub
       - name: Pull Docker image from Docker Hub
@@ -40,20 +40,20 @@ jobs:
       # Step 6: Tag the Docker image for ECR
       - name: Tag Docker image for ECR
         run: |
-          docker tag ${{ secrets.DOCKER_REPO }}:4a91df2 ${{ secrets.ECR_PRIVATE_REPO }}:v1.0.0
+          docker tag ${{ secrets.DOCKER_REPO }}:4a91df2 ${{ secrets.ECR_PUBLIC_REPO }}:v1.0.0
 
       # Step 7: Push the Docker image to ECR
       - name: Push Docker image to ECR
-        run: docker push ${{ secrets.ECR_PRIVATE_REPO }}:v1.0.0
+        run: docker push ${{ secrets.ECR_PUBLIC_REPO }}:v1.0.0
 
       # Step 8: List ECR Repositories
       - name: List ECR Repositories
         run: |
           echo "Listing ECR repositories..."
-          aws ecr describe-repositories --region ${{ secrets.AWS_REGION }}
+          aws ecr-public describe-repositories --region ${{ secrets.AWS_REGION }}
 
       # Step 9: List Images in the Repository
       - name: List Images in ECR Repository
         run: |
           echo "Listing images in the ECR repository..."
-          aws ecr list-images --repository-name ${{ secrets.AWS_ECR_PRIVATE_NAME }} --region ${{ secrets.AWS_REGION }}
+          aws ecr-public list-images --repository-name ${{ secrets.AWS_ECR_PUBLIC_NAME }} --region ${{ secrets.AWS_REGION }}
