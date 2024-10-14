@@ -63,4 +63,4 @@ jobs:
       - name: List Images in ECR Repository
         run: |
           echo "Listing images in the ECR repository..."
-          aws ecr list-images --repository-name ${{ secrets.ECR_PRIVATE_REPO }} --region ${{ secrets.AWS_REGION }}
+          aws ecr list-images --repository-name ${{ secrets.AWS_ECR_NAME }} --region ${{ secrets.AWS_REGION }}
