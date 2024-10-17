@@ -1,4 +1,4 @@
-name: Push Docker Image to ECR Public repository
+name: Push Docker Image to ECR Public repository.
 
 on:
   push:
