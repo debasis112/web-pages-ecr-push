@@ -46,15 +46,15 @@ jobs:
       - name: Push Docker image to ECR
         run: docker push ${{ secrets.ECR_PUBLIC_REPO }}:v1.0.0
 
-      # Step 8: List ECR Repositories
-      - name: List ECR Repositories
-        run: |
-          echo "Listing ECR repositories..."
-          aws ecr-public describe-repositories --region ${{ secrets.AWS_REGION }}
+      # # Step 8: List ECR Repositories
+      # - name: List ECR Repositories
+      #   run: |
+      #     echo "Listing ECR repositories..."
+      #     aws ecr-public describe-repositories --region ${{ secrets.AWS_REGION }}
 
-      # Step 9: List Images in the Repository
-      - name: List Images in ECR Repository
-        run: |
-          echo "Listing images in the public ECR repository..."
-          aws ecr public list-images --repository-name ${{ secrets.AWS_ECR_PUBLIC_NAME }} --region ${{ secrets.AWS_REGION }}
+      # # Step 9: List Images in the Repository
+      # - name: List Images in ECR Repository
+      #   run: |
+      #     echo "Listing images in the public ECR repository..."
+      #     aws ecr public list-images --repository-name ${{ secrets.AWS_ECR_PUBLIC_NAME }} --region ${{ secrets.AWS_REGION }}
 
